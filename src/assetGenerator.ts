@@ -4,6 +4,7 @@ import * as path from 'path';
 import { AssetsConfig } from './config';
 
 export function generateAssets(options: AssetsConfig) {
+  const alwaysIgnore = ["2.0x", "3.0x", "Mx", "Nx"];
   const { rootPath, outputFile, className, pathIgnore } = options;
   const assetsDirs = getAssetsDirs(options);
 
@@ -19,13 +20,14 @@ export function generateAssets(options: AssetsConfig) {
   function walk(rootPath: string, dir: string) {
     for (const file of fs.readdirSync(dir)) {
       // 忽略隐藏文件和系统文件
-      if (file.startsWith('.') || file === 'Thumbs.db') {
+      if (file.startsWith('.')) {
         continue;
       }
 
       const filepath = path.join(dir, file);
+
       // 检查是否在忽略路径中
-      if (pathIgnore.includes(file)) {
+      if (alwaysIgnore.includes(file) || pathIgnore.includes(file)) {
         continue;
       }
 

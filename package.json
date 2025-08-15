@@ -3,6 +3,15 @@
   "displayName": "Flutter Assets Generator",
   "description": "Generate Dart asset references from your Flutter assets directory.",
   "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxman2/FlutterAssetsGenerator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/foxman2/FlutterAssetsGenerator/issues"
+  },
+  "homepage": "https://github.com/foxman2/FlutterAssetsGenerator#readme",
   "engines": {
     "vscode": "^1.94.0"
   },
@@ -42,12 +51,7 @@
           "items": {
             "type": "string"
           },
-          "default": [
-            "2.0x",
-            "3.0x",
-            "Mx",
-            "Nx"
-          ],
+          "default": [],
           "description": "Paths to ignore (relative to assets directory)"
         },
         "flutterAssetsGen.leadingWithPackageName": {
@@ -59,9 +63,8 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
