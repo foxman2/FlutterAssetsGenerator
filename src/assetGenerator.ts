@@ -1,12 +1,10 @@
 import * as fs from 'fs';
-import * as yaml from 'js-yaml';
 import * as path from 'path';
 import { AssetsConfig } from './config';
 
 export function generateAssets(options: AssetsConfig) {
   const alwaysIgnore = ["2.0x", "3.0x", "Mx", "Nx"];
-  const { rootPath, outputFile, className, pathIgnore } = options;
-  const assetsDirs = getAssetsDirs(options);
+  const { rootPath, assetsDirs, outputFile, className, pathIgnore } = options;
 
   console.log('Starting asset generation with options:', JSON.stringify(options, null, 2));
 
@@ -101,25 +99,4 @@ export function generateAssets(options: AssetsConfig) {
   fs.mkdirSync(path.dirname(outputFile), { recursive: true });
   fs.writeFileSync(outputFile, lines.join('\n'));
   console.log(`Assets generated at ${outputFile}`);
-}
-
-// 在pubspec.yaml中配置的assets目录
-function getAssetsDirs(config: AssetsConfig): string[] {
-  const pubspecPath = path.resolve(config.rootPath, 'pubspec.yaml');
-  if (!fs.existsSync(pubspecPath)) {
-    throw new Error(`pubspec.yaml not found at ${pubspecPath}`);
-  }
-  const pubspecContent = fs.readFileSync(pubspecPath, 'utf8');
-  const pubspec = yaml.load(pubspecContent) as any;
-
-  const assets: string[] = [];
-  let yamlAssets = pubspec.flutter.assets as string[]
-  yamlAssets = yamlAssets.sort()
-  for (var asset of yamlAssets) {
-    if (typeof asset === 'string') {
-      asset = path.resolve(config.rootPath, asset); // 确保路径是绝对的
-      assets.push(asset.replace(/\/$/, '')); // 去除末尾斜杠
-    }
-  }
-  return assets.map(asset => path.resolve(process.cwd(), asset));
 }
