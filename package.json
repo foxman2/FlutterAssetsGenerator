@@ -1,0 +1,76 @@
+{
+  "name": "flutter-assets-generator-vscode",
+  "displayName": "Flutter Assets Generator",
+  "description": "Generate Dart asset references from your Flutter assets directory.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "flutterAssetsGen.generate",
+        "title": "Flutter: Generate Assets"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Flutter Assets Generator",
+      "properties": {
+        "flutterAssetsGen.outputFile": {
+          "type": "string",
+          "default": "lib/generated/assets.dart",
+          "description": "The output file path for generated assets class"
+        },
+        "flutterAssetsGen.className": {
+          "type": "string",
+          "default": "Assets",
+          "description": "The name of the generated assets class"
+        },
+        "flutterAssetsGen.autoDetection": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to automatically regenerate assets when files change"
+        },
+        "flutterAssetsGen.pathIgnore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "2.0x",
+            "3.0x",
+            "Mx",
+            "Nx"
+          ],
+          "description": "Paths to ignore (relative to assets directory)"
+        },
+        "flutterAssetsGen.leadingWithPackageName": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to include package name as prefix in asset paths"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^24.2.1",
+    "@types/vscode": "^1.94.0",
+    "@vscode/test-electron": "^2.3.5",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
