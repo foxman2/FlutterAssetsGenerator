@@ -2,7 +2,7 @@
   "name": "flutter-assets-generator-vscode",
   "displayName": "Flutter Assets Generator",
   "description": "Generate Dart asset references from your Flutter assets directory.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -19,7 +19,9 @@
     "Other"
   ],
   "main": "out/extension.js",
-  "activationEvents": [],
+  "activationEvents": [
+    "workspaceContains:pubspec.yaml"
+  ],
   "contributes": {
     "commands": [
       {
